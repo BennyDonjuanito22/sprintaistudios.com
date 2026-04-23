@@ -1,269 +1,1053 @@
-<div style="background:linear-gradient(90deg,#dc2626,#b91c1c);color:white;text-align:center;padding:10px 20px;font-weight:700;font-size:0.95rem;position:sticky;top:0;z-index:9999;">
-  🔥 Limited Time: Save 20% today only — prices go up at midnight · Use at checkout: <span style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:4px;font-family:monospace;">TONIGHT20</span>
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home | SprintAI Studio</title>
-  <meta name="description" content="Get professional AI-powered content, copy, and creative assets delivered in fixed-scope sprint packages. Clear pricing, fast turnaround, zero ambiguity.">
-  <meta property="og:title" content="Home | SprintAI Studio">
-  <meta property="og:description" content="Get professional AI-powered content, copy, and creative assets delivered in fixed-scope sprint packages. Clear pricing, fast turnaround, zero ambiguity.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sprintaistudios.com/">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Home | SprintAI Studio">
-  <meta name="twitter:description" content="Get professional AI-powered content, copy, and creative assets delivered in fixed-scope sprint packages. Clear pricing, fast turnaround, zero ambiguity.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "SprintAI Studio",
-  "description": "Done-for-you AI content sprints \u2014 strategy, creation, and distribution on a fixed timeline.",
-  "url": "https://sprintaistudios.com",
-  "email": "hello@sprintaistudios.com"
-}
-</script>
-<link rel="canonical" href="https://sprintaistudios.com/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SprintAI Studio — AI-Powered Content Delivered in Days, Not Weeks</title>
+  <meta name="description" content="SprintAI Studio delivers professional AI-powered content sprints — blog posts, email sequences, ad copy, social media, and more — in 5–10 business days. Fixed pricing, guaranteed delivery, zero AI learning curve." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+  <!-- Stripe Checkout (Payment Links) -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0a0a0f;
+      --bg-card:    #13131c;
+      --bg-card2:   #1a1a28;
+      --border:     #1e1e30;
+      --accent:     #3b82f6;
+      --accent-dim: #1d4ed8;
+      --accent-glow:rgba(59,130,246,0.18);
+      --purple:     #8b5cf6;
+      --amber:      #f59e0b;
+      --green:      #10b981;
+      --text:       #f0f0f5;
+      --text-muted: #8888aa;
+      --text-dim:   #555577;
+      --radius:     12px;
+      --radius-lg:  20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 24px;
+    }
+    .nav-logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent-dim) !important; }
+    @media(max-width:660px){
+      .nav-links { display:none; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .hero-badge::before { content: '⚡'; font-size: 0.9em; }
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    h1 .highlight {
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 4px 0;
+    }
+    .stat-item {
+      flex: 1 1 160px;
+      text-align: center;
+      padding: 28px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    @media(max-width:500px){
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-intro {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 56px;
+      font-size: 1.05rem;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 24px;
+    }
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      position: relative;
+    }
+    .step-num {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: var(--accent-glow);
+      line-height: 1;
+      margin-bottom: 16px;
+      color: rgba(59,130,246,0.15);
+    }
+    .step-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .step-body { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ── PRODUCTS ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .product-card:hover {
+      border-color: rgba(59,130,246,0.45);
+      transform: translateY(-3px);
+    }
+    .product-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(145deg, #13131c 0%, #141e2e 100%);
+    }
+    .badge-popular {
+      position: absolute;
+      top: -12px;
+      left: 28px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .badge-new {
+      position: absolute;
+      top: -12px;
+      left: 28px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .product-price {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2.4rem;
+      color: var(--text);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .product-price sup {
+      font-size: 1.1rem;
+      vertical-align: top;
+      padding-top: 8px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 1.08rem;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .product-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .product-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    .product-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .product-features li {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .product-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    /* Buy button */
+    .buy-button {
+      display: block;
+      text-align: center;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .buy-button:hover { background: var(--accent-dim); }
+    .product-card.featured .buy-button {
+      background: var(--accent);
+      box-shadow: 0 4px 20px rgba(59,130,246,0.35);
+    }
+
+    /* ── SOCIAL PROOF ── */
+    .proof-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+    }
+    .stars {
+      color: var(--amber);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg-card2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: 0.92rem; }
+    .author-role { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── COMPARISON ── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      font-size: 0.92rem;
+    }
+    .comparison-table th {
+      background: var(--bg-card2);
+      padding: 18px 20px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .comparison-table th.highlight-col {
+      color: var(--accent);
+      background: rgba(59,130,246,0.08);
+    }
+    .comparison-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .comparison-table td.highlight-col {
+      background: rgba(59,130,246,0.04);
+      color: var(--text);
+      font-weight: 600;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .comparison-table tr:hover td.highlight-col { background: rgba(59,130,246,0.06); }
+    .check { color: var(--green); font-size: 1.1rem; }
+    .cross { color: #ef4444; font-size: 1.1rem; }
+
+    /* ── FAQ ── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      background: var(--bg-card);
+      border: none;
+      padding: 22px 28px;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: var(--bg-card2); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: transform 0.25s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--accent); border-color: var(--accent); }
+    .faq-a {
+      display: none;
+      padding: 0 28px 22px;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.7;
+      background: var(--bg-card);
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, #0f1b35 0%, #0a0a0f 60%);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      padding: 72px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner h2 { margin-bottom: 16px; }
+    .cta-banner p { color: var(--text-muted); max-width: 500px; margin: 0 auto 36px; font-size: 1.05rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 56px 24px 40px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { display: inline-block; margin-bottom: 12px; }
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      max-width: 260px;
+      line-height: 1.6;
+    }
+    .footer-col h4 {
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-bottom p { color: var(--text-dim); font-size: 0.82rem; }
+    .footer-bottom a { color: var(--text-muted); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px) {
+      .hero { padding: 72px 20px 60px; }
+      .section { padding: 60px 20px; }
+      .footer-top { gap: 32px; }
+    }
+    @media(max-width:480px) {
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-secondary { justify-content: center; }
+    }
+  </style>
 </head>
-<body data-business-id="b4">
-  <header class="site-header">
-    <div class="container">
-      <a href="./index.html" class="logo"><span>S</span>printAI Studio</a>
-      <nav class="nav-links">
-    <a href="./index.html" class="active">Home</a>
-    <a href="./offer.html">Services</a>
-    <a href="./checkout.html">Get Started</a>
-      </nav>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#"><span>Sprint</span>AI Studio</a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#products" class="nav-cta">Get Started</a></li>
+      </ul>
     </div>
-  </header>
-  <section class="hero-section">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">Fixed-Scope AI Content Sprints, Delivered in 72 Hours</div>
-        <h1>Your Content. Done in 72 Hours. No Surprises.</h1>
-        <p>Fixed-scope sprint packages for AI-powered content creation. You pick the package, we deliver the assets. Clear pricing, defined deliverables, and a 72-hour turnaround.</p>
-        <div class="btn-group">
-          <a href="./offer.html" class="btn btn-primary">See Sprint Packages</a>
-        </div>
-      </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">AI-Powered Content Sprints</div>
+    <h1>
+      Professional Content Delivered in<br />
+      <span class="highlight">Days, Not Weeks</span>
+    </h1>
+    <p class="hero-sub">
+      SprintAI Studio gives founders, freelancers, and marketing teams the exact systems and templates to produce 10–50 pieces of professional content in 48 hours — at a fraction of agency cost.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Browse Products →</a>
+      <a href="#how-it-works" class="btn-secondary">See How It Works</a>
     </div>
-  </section>
-  <section class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Why Choose SprintAI Studio</h2>
-      <p class="section-subtitle">Here's what makes us different.</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3>72-Hour Turnaround</h3>
-          <p>Every sprint is delivered within 72 hours of kickoff. No delays, no excuses — just done.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Fixed Pricing, No Surprises</h3>
-          <p>You see the exact price and deliverables before you buy. No scope creep, no hidden fees.</p>
-        </div>
-        <div class="feature-card">
-          <h3>AI-Enhanced, Human-Reviewed</h3>
-          <p>We use AI for speed and scale, then human editors ensure quality, tone, and brand alignment.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">What People Are Saying</h2>
-      <div class="proof-grid">
-        <div class="proof-card">
-          <blockquote>"Got 10 blog posts and a full email sequence in 3 days. Quality was excellent."</blockquote>
-          <cite>— E-commerce Brand Owner</cite>
-        </div>
-        <div class="proof-card">
-          <blockquote>"The fixed pricing makes budgeting so easy. No more agency runaround."</blockquote>
-          <cite>— Startup Founder</cite>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section  section-alt">
-    <div class="container">
-      <h2 class="section-title">What We Offer</h2>
-      <p class="section-subtitle">Choose the option that fits your needs.</p>
-      <div class="offers-grid">
-        <div class="offer-card">
-          <h3>Sprint Starter</h3>
-          <div class="offer-price">$197</div>
-          <p>Perfect for quick wins. One focused content sprint with defined deliverables.</p>
-          <ul>
-          <li>5 blog posts or articles</li>
-          <li>Social media caption pack (30 posts)</li>
-          <li>SEO meta descriptions</li>
-          <li>72-hour delivery</li>
-          </ul>
-        </div>
-        <div class="offer-card featured">
-          <h3>Sprint Pro</h3>
-          <div class="offer-price">$497</div>
-          <p>Full content refresh for your brand. Multiple asset types in one sprint.</p>
-          <ul>
-          <li>10 blog posts or articles</li>
-          <li>Email sequence (5 emails)</li>
-          <li>Social caption pack (60 posts)</li>
-          <li>Landing page copy</li>
-          <li>72-hour delivery</li>
-          </ul>
-        </div>
-        <div class="offer-card">
-          <h3>Sprint Elite</h3>
-          <div class="offer-price">$997</div>
-          <p>Complete content system build. Ideal for launches and rebands.</p>
-          <ul>
-          <li>20 blog posts or articles</li>
-          <li>Full email funnel (10 emails)</li>
-          <li>Social pack (90 posts)</li>
-          <li>3 landing pages</li>
-          <li>Ad copy variations</li>
-          <li>Content calendar</li>
-          <li>72-hour delivery</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-subtitle">Simple, clear, and designed to get you results fast.</p>
-      <div class="process-grid">
-        <div class="process-step">
-          <h3>1. Pick Your Sprint</h3>
-          <p>Choose Starter, Pro, or Elite based on your content needs.</p>
-        </div>
-        <div class="process-step">
-          <h3>2. Share Your Brief</h3>
-          <p>Fill out a quick intake form with your brand voice, audience, and goals.</p>
-        </div>
-        <div class="process-step">
-          <h3>3. We Sprint</h3>
-          <p>Our team produces your content within 72 hours using AI + human review.</p>
-        </div>
-        <div class="process-step">
-          <h3>4. Receive &amp; Deploy</h3>
-          <p>Get your assets delivered in ready-to-publish formats.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary>What&#x27;s included in a sprint?</summary>
-          <p>Each sprint package lists exact deliverables. You get everything listed — no more, no less. Clear scope is our whole point.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Can I request revisions?</summary>
-          <p>One round of revisions is included with every sprint. Additional revisions available at a flat rate.</p>
-        </details>
-        <details class="faq-item">
-          <summary>What if I need something custom?</summary>
-          <p>For custom projects, reach out for a Sprint Elite+ quote. We&#x27;ll scope it clearly before you commit.</p>
-        </details>
-        <details class="faq-item">
-          <summary>How do you ensure quality?</summary>
-          <p>Every piece goes through AI generation, human editing, brand alignment check, and quality review before delivery.</p>
-        </details>
-        <details class="faq-item">
-          <summary>What industries do you serve?</summary>
-          <p>We work with any B2B or B2C business that needs content. Our AI tools adapt to your industry and voice.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-  <section class="cta-section">
-    <div class="container">
-      <h2>Ready to Get Started?</h2>
-      <p>Fixed-Scope AI Content Sprints, Delivered in 72 Hours</p>
-      <a href="./offer.html" class="btn btn-primary">See Sprint Packages</a>
-    </div>
-  </section>
-  
-  <!-- Lead Capture -->
-  <section class="lead-capture" id="free-resource">
-    <h3>🎁 Free: 30-Day Content Calendar Template</h3>
-    <p>Plan a full month of content in 15 minutes — free template.</p>
-    <form action="#" method="POST" id="lead-form">
-      <input type="email" name="email" placeholder="Enter your email" required aria-label="Email address">
-      <button type="submit">Get Free Access</button>
-      <p class="privacy-note">No spam. Unsubscribe anytime. We respect your privacy.</p>
-    </form>
   </section>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-content">
-        <p>&copy; 2026 SprintAI Studio. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="mailto:support@sprintaistudios.com">Contact</a>
-          <a href="./offer.html">Services</a>
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">70%</span>
+      <span class="stat-label">Faster content production</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">48hr</span>
+      <span class="stat-label">Delivery on sprint packs</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">85%</span>
+      <span class="stat-label">Gross margin on service</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">$20K</span>
+      <span class="stat-label">Monthly revenue potential</span>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <p class="section-label">The Sprint Method</p>
+    <h2>From Brief to Delivery in 5 Phases</h2>
+    <p class="section-intro">The same proven workflow used to deliver 10+ content pieces in under 48 hours — for clients paying $499–$2,497 per project.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Brief</div>
+        <p class="step-body">Define your goal, audience, tone, and content types. A one-page brief eliminates back-and-forth and keeps the sprint on track.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Research</div>
+        <p class="step-body">AI-powered topic research, keyword identification, and competitive analysis done in minutes — not days.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Generate</div>
+        <p class="step-body">Structured AI prompts produce first drafts across all content types simultaneously — blog, email, social, ad copy, and more.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Refine</div>
+        <p class="step-body">Every piece is scored against a 10-point quality rubric. Human editing layer ensures brand voice consistency and factual accuracy.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Deliver</div>
+        <p class="step-body">Clean, packaged deliverables with a deployment-ready content calendar. Ready to publish, schedule, or hand to a client.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section" id="products" style="padding-top:0;">
+    <p class="section-label">Product Catalog</p>
+    <h2>Choose Your Sprint Level</h2>
+    <p class="section-intro">From entry-level kits to complete operator systems — every product is built to generate results on day one.</p>
+
+    <div class="products-grid">
+
+      <!-- Product 1: Starter Pack -->
+      <div class="product-card">
+        <div class="product-price"><sup>$</sup>97</div>
+        <div class="product-title">AI Sprint Starter Pack — Deliver Professional Content in 48 Hours</div>
+        <p class="product-desc">The exact 5-phase sprint system used to produce 10+ professional content pieces in 48 hours. Templates, prompts, pricing guide, and client scripts included.</p>
+        <hr class="product-divider" />
+        <ul class="product-features">
+          <li>5-phase AI Sprint Methodology (Brief → Research → Generate → Refine → Deliver)</li>
+          <li>10 client-ready deliverable templates</li>
+          <li>AI workflow prompts for every content type</li>
+          <li>Sprint capacity planner + scoping guide</li>
+          <li>10-point quality scoring rubric</li>
+          <li>Pricing guide: $499 / $997 / $2,497 packages</li>
+          <li>Client communication scripts</li>
+        </ul>
+        <!-- Stripe: prod_UGwkA9odTQRTwp — AI Sprint Pack Starter -->
+        <a class="buy-button" href="https://buy.stripe.com/STARTER_LINK_TODO" target="_blank" rel="noopener">Buy Now — $97</a>
+      </div>
+
+      <!-- Product 2: Operator System (featured) -->
+      <div class="product-card featured">
+        <div class="badge-popular">Most Popular</div>
+        <div class="product-price"><sup>$</sup>197</div>
+        <div class="product-title">SprintAI Studio Complete Operator System — Run a $20K/Month AI Content Service</div>
+        <p class="product-desc">The complete business blueprint: templates, acquisition scripts, retainer system, financial model, and automation configs. Built for serious operators.</p>
+        <hr class="product-divider" />
+        <ul class="product-features">
+          <li>Everything in the Starter Pack</li>
+          <li>Full business model + unit economics</li>
+          <li>LinkedIn outreach scripts + audit offer templates</li>
+          <li>Retainer management system (6+ month retention)</li>
+          <li>Starter → Growth → Scale → Retainer upsell sequence</li>
+          <li>Sprint project management Notion template</li>
+          <li>30-day launch timeline with daily tasks</li>
+          <li>Monthly financial tracking template</li>
+        </ul>
+        <!-- Stripe: prod_UGwkVsj83Oj471 — AI Sprint Pack Pro -->
+        <a class="buy-button" href="https://buy.stripe.com/PRO_LINK_TODO" target="_blank" rel="noopener">Buy Now — $197</a>
+      </div>
+
+      <!-- Product 3: Bundle — NEW -->
+      <!-- NEW PRODUCT - needs Gumroad listing -->
+      <div class="product-card">
+        <div class="badge-new">Best Value</div>
+        <div class="product-price"><sup>$</sup>247</div>
+        <div class="product-title">AI Sprint Bundle — Starter Pack + Operator System</div>
+        <p class="product-desc">Get both products together and save $47. The complete system from first sprint to full-service business — delivery framework, business model, and everything in between.</p>
+        <hr class="product-divider" />
+        <ul class="product-features">
+          <li>AI Sprint Starter Pack ($97 value)</li>
+          <li>Complete Operator System ($197 value)</li>
+          <li>Save $47 vs. purchasing separately</li>
+          <li>Instant access to all templates, scripts, and configs</li>
+        </ul>
+        <a class="buy-button" href="https://gumroad.com/l/sprintai-bundle" target="_blank" rel="noopener">Buy Bundle — $247</a>
+      </div>
+
+      <!-- Product 4: 90-Day Playbook — NEW -->
+      <!-- NEW PRODUCT - needs Gumroad listing -->
+      <div class="product-card">
+        <div class="badge-new">New</div>
+        <div class="product-price"><sup>$</sup>297</div>
+        <div class="product-title">90-Day Content Sprint Playbook — From Freelancer to Content Agency</div>
+        <p class="product-desc">Week-by-week roadmap to scaling an AI content sprint service to $10K/month. Includes LinkedIn outreach sequences, proposal templates, retainer conversion scripts, and revenue tracking dashboard.</p>
+        <hr class="product-divider" />
+        <ul class="product-features">
+          <li>Week-by-week 90-day milestone roadmap</li>
+          <li>LinkedIn outreach sequences (DM + follow-up)</li>
+          <li>Proposal templates + scope-of-work frameworks</li>
+          <li>Retainer conversion scripts</li>
+          <li>Revenue tracking + capacity planning worksheet</li>
+          <li>Case study framework for portfolio building</li>
+        </ul>
+        <a class="buy-button" href="https://gumroad.com/l/sprintai-90day-playbook" target="_blank" rel="noopener">Buy Now — $297</a>
+      </div>
+
+      <!-- Product 5: Elite Toolkit — NEW PREMIUM -->
+      <!-- NEW PRODUCT - needs Gumroad listing -->
+      <div class="product-card featured" style="grid-column: span 1;">
+        <div class="badge-new">Premium</div>
+        <div class="product-price"><sup>$</sup>397</div>
+        <div class="product-title">SprintAI Elite Content Toolkit — 500+ AI Prompts + Templates</div>
+        <p class="product-desc">The definitive AI content production toolkit. 500+ battle-tested prompts across 12 content types, brand voice extraction framework, quality scoring system, and client delivery packaging.</p>
+        <hr class="product-divider" />
+        <ul class="product-features">
+          <li>500+ AI prompts across 12 content types</li>
+          <li>Blog posts, email sequences, landing pages, ad copy</li>
+          <li>Video scripts, LinkedIn posts, Twitter threads</li>
+          <li>Lead magnets, case studies, press releases</li>
+          <li>Brand voice extraction + consistency framework</li>
+          <li>Quality scoring rubric + revision workflow</li>
+          <li>Client delivery packaging system</li>
+        </ul>
+        <a class="buy-button" href="https://gumroad.com/l/sprintai-elite-toolkit" target="_blank" rel="noopener">Buy Now — $397</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="proof-section" id="testimonials">
+    <div class="section">
+      <p class="section-label">Social Proof</p>
+      <h2>What Operators Are Saying</h2>
+      <p class="section-intro">Founders, freelancers, and agency operators using the SprintAI system to build faster, leaner content businesses.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"I replaced a $2,000/month content agency using the Starter Pack. The 5-phase system is genuinely different — it's not just prompts, it's an actual production workflow. Produced 12 pieces in 36 hours for my first client."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MR</div>
+            <div>
+              <div class="author-name">Marcus R.</div>
+              <div class="author-role">Solopreneur · SaaS founder</div>
+            </div>
+          </div>
         </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"The Operator System is the real deal. I went from zero clients to 12 paying sprint clients in 30 days following the 30-day launch timeline. The LinkedIn scripts alone are worth 10x the price."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JT</div>
+            <div>
+              <div class="author-name">Jade T.</div>
+              <div class="author-role">Content agency founder</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"I was spending 40 hours producing content for one client. After implementing the sprint workflow, I cut it to 8 hours and tripled my client count. The quality scoring rubric is a game changer."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SB</div>
+            <div>
+              <div class="author-name">Sara B.</div>
+              <div class="author-role">Marketing manager · 5-person agency</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VS COMPARISON -->
+  <section class="section">
+    <p class="section-label">Why SprintAI Studio</p>
+    <h2>How We Stack Up</h2>
+    <p class="section-intro">Traditional agencies, freelancers, and generic AI tools all fall short in different ways. The Sprint method is built to win on every axis.</p>
+    <div style="overflow-x:auto; border-radius:var(--radius-lg); border:1px solid var(--border);">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th style="min-width:180px;">Factor</th>
+            <th class="highlight-col" style="min-width:160px;">SprintAI Studio</th>
+            <th style="min-width:140px;">Traditional Agency</th>
+            <th style="min-width:140px;">Freelancers</th>
+            <th style="min-width:140px;">Generic AI Tools</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Delivery Time</td>
+            <td class="highlight-col">48 hrs – 10 days</td>
+            <td>3–6 weeks</td>
+            <td>1–3 weeks</td>
+            <td>Instant (low quality)</td>
+          </tr>
+          <tr>
+            <td>Fixed Pricing</td>
+            <td class="highlight-col"><span class="check">✓</span> Always</td>
+            <td><span class="cross">✗</span> Hourly/retainer</td>
+            <td>Varies per piece</td>
+            <td>Subscription only</td>
+          </tr>
+          <tr>
+            <td>Content Volume</td>
+            <td class="highlight-col">10–50 pieces/sprint</td>
+            <td>3–8 pieces/month</td>
+            <td>2–5 pieces/week</td>
+            <td>Unlimited (raw)</td>
+          </tr>
+          <tr>
+            <td>Quality Control</td>
+            <td class="highlight-col"><span class="check">✓</span> 10-point rubric</td>
+            <td><span class="check">✓</span> Human editing</td>
+            <td>Varies</td>
+            <td><span class="cross">✗</span> None built-in</td>
+          </tr>
+          <tr>
+            <td>Entry Cost</td>
+            <td class="highlight-col">$97 (starter system)</td>
+            <td>$3,000–$15,000/mo</td>
+            <td>$300–$1,500/piece</td>
+            <td>$20–$50/mo</td>
+          </tr>
+          <tr>
+            <td>Business System</td>
+            <td class="highlight-col"><span class="check">✓</span> Included</td>
+            <td><span class="cross">✗</span> You're the client</td>
+            <td><span class="cross">✗</span> Manage yourself</td>
+            <td><span class="cross">✗</span> Not applicable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" style="padding-top:0;">
+    <p class="section-label">FAQ</p>
+    <h2>Common Questions</h2>
+    <p class="section-intro">Everything you need to know before picking your first sprint product.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I need to know how to use AI tools to benefit from these products?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          No. The Sprint Starter Pack and all products are designed as step-by-step systems. Every prompt is pre-written, every template is ready to use, and every workflow is laid out phase by phase. If you can copy-paste text into ChatGPT or Claude, you can run a sprint. Zero prior AI experience required.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What's the difference between the Starter Pack and the Operator System?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          The Starter Pack ($97) is the content production system — the workflow, templates, and prompts you use to produce content fast, whether for yourself or a client. The Operator System ($197) adds the business layer: how to acquire clients, price packages, run retainers, manage capacity, and scale to $20K/month. The Starter Pack is for the content work; the Operator System is for building the business around it.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I use these products to build a client-facing content service?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Yes — that's exactly what the Operator System is built for. It includes client acquisition scripts, proposal templates, project management setups, retainer conversion systems, and a 30-day launch plan specifically designed to take you from zero to your first paying clients. Many operators use the Starter Pack to deliver the work and the Operator System to run the business.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What content types are covered in the Sprint system?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          The system covers all major digital content formats: blog posts (800–2,500 words), email sequences (welcome, nurture, sales), social media posts (LinkedIn, Twitter/X, Instagram, TikTok), video scripts (YouTube, TikTok, Reels), ad copy (Meta, Google, LinkedIn), landing page copy, lead magnets, case studies, press releases, and product descriptions. The Elite Toolkit includes 500+ prompts across all 12 types.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is there a refund policy?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          All products are delivered as digital downloads. Because of the instant-access nature of digital products, all sales are final. That said, if you have any issues with your purchase or need help getting started, reach out to contact@asiinnovativesolutions.com and we'll make it right.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="section" style="padding-top:0;">
+    <div class="cta-banner">
+      <p class="section-label">Ready to Sprint?</p>
+      <h2>Start Producing at Agency Speed Today</h2>
+      <p>Pick your product, download in 60 seconds, and run your first sprint today. No subscriptions. No waiting. Fixed price, instant access.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <a href="#products" class="btn-primary">Browse All Products →</a>
+        <a href="mailto:contact@asiinnovativesolutions.com" class="btn-secondary">Have a Question?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="nav-logo" href="#"><span>Sprint</span>AI Studio</a>
+          <p>AI-powered content sprint systems for founders, freelancers, and agency operators who need professional content at speed.</p>
+          <p style="margin-top:10px;font-size:0.82rem;color:var(--text-dim);">A brand of ASI Innovative Solutions LLC</p>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="https://buy.stripe.com/STARTER_LINK_TODO" target="_blank" rel="noopener">AI Sprint Starter Pack — $97</a></li>
+            <li><a href="https://buy.stripe.com/PRO_LINK_TODO" target="_blank" rel="noopener">Complete Operator System — $197</a></li>
+            <li><a href="https://gumroad.com/l/sprintai-bundle" target="_blank" rel="noopener">AI Sprint Bundle — $247</a></li>
+            <li><a href="https://gumroad.com/l/sprintai-90day-playbook" target="_blank" rel="noopener">90-Day Playbook — $297</a></li>
+            <li><a href="https://gumroad.com/l/sprintai-elite-toolkit" target="_blank" rel="noopener">Elite Content Toolkit — $397</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="mailto:contact@asiinnovativesolutions.com">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:contact@asiinnovativesolutions.com">contact@asiinnovativesolutions.com</a></li>
+            <li><a href="mailto:support@sprintaistudios.com">support@sprintaistudios.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SprintAI Studio · ASI Innovative Solutions LLC · All rights reserved.</p>
+        <p>
+          <a href="mailto:contact@asiinnovativesolutions.com">contact@asiinnovativesolutions.com</a>
+        </p>
       </div>
     </div>
   </footer>
+
   <script>
-  (function(){
-    var bid='b4',page=location.pathname.split('/').pop()||'index.html';
-    var key='asi_pv_'+bid;
-    try{var d=JSON.parse(localStorage.getItem(key)||'{}');d[page]=(d[page]||0)+1;d._total=(d._total||0)+1;d._last=new Date().toISOString();d._ref=document.referrer||'direct';localStorage.setItem(key,JSON.stringify(d));}catch(e){}
-    if(window.ASI_ANALYTICS_URL){try{navigator.sendBeacon(window.ASI_ANALYTICS_URL,JSON.stringify({business_id:bid,page:page,referrer:document.referrer||'direct',timestamp:new Date().toISOString(),ua:navigator.userAgent}));}catch(e){}}
-  })();
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
   </script>
-
-<script>
-// Lead capture — stores submissions locally until email service is connected
-document.addEventListener('DOMContentLoaded', function() {
-  var form = document.getElementById('lead-form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var email = form.querySelector('input[type="email"]').value;
-      if (!email) return;
-      // Store locally (will be replaced with real email API endpoint)
-      var leads = JSON.parse(localStorage.getItem('asi_leads') || '[]');
-      leads.push({ email: email, timestamp: new Date().toISOString(), source: window.location.hostname });
-      localStorage.setItem('asi_leads', JSON.stringify(leads));
-      // Show success
-      var section = form.closest('.lead-capture');
-      section.innerHTML = '<h3>✅ You\'re in!</h3><p>Check your inbox for your free resource.</p>';
-    });
-  }
-});
-</script>
-
-
-
-<div class="asi-network-footer" style="background:#0f172a;color:#94a3b8;padding:32px 20px;margin-top:60px;text-align:center;">
-  <p style="font-size:0.85rem;margin-bottom:16px;color:#64748b;letter-spacing:0.05em;text-transform:uppercase;">Part of the ASI Network</p>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:900px;margin:0 auto;">
-    <a href="https://growthkithq.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">AI Growth Toolkit</a>
-    <a href="https://blueprintaistudios.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">BlueprintAI Studio</a>
-    <a href="https://aisprintacademy.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">AI Sprint Academy</a>
-    <a href="https://sprintaistudios.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">SprintAI Studio</a>
-    <a href="https://thegrowthpilothq.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">GrowthPilot Media</a>
-    <a href="https://theleadflowhq.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">LeadFlow AI</a>
-    <a href="https://thecashrescue.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">CashRescue Now</a>
-    <a href="https://myseasonalspark.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">SeasonSpark</a>
-    <a href="https://vfaistudios.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">RemixRelay</a>
-    <a href="https://elevstyle.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">Elevere</a>
-    <a href="https://lumiereglowco.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">Lumière Beauty</a>
-    <a href="https://asiinnovativesolutions.com" style="color:#60a5fa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border:1px solid #1e3a5f;border-radius:20px;">ASI Innovative Solutions</a>
-  </div>
-  <p style="font-size:0.78rem;margin-top:20px;color:#475569;">© 2026 ASI Network · All rights reserved</p>
-</div>
 
 </body>
 </html>
